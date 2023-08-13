@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>provider Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        }
+
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<form action="" method="post">
+    <h1>Provider Update</h1>
+    
+    <label for="id">ID:</label><br>
+    <input type="text" value="<%= provider[0].p_id %>" id="id" name="id" required readonly><br><br>
+    
+    <label for="name">Name:</label><br>
+    <input type="text" value="<%= provider[0].p_name %>" id="name" name="name" required><br><br>
+    
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" minlength="5" maxlength="10" name="password" required><br><br>
+    
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

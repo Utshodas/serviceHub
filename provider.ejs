@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Provider Table</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>House</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Service</th>
+        <th>Action</th>
+    </tr>
+    <% for(var i=0; i<provider.length;i++){ %>
+    <tr>
+        <td><%- provider[i].p_id%></td>
+        <td><%- provider[i].p_name%></td>
+        <td><%- provider[i].house %></td>
+        <td><%- provider[i].street %></td>
+        <td><%- provider[i].city %></td>
+        <td><%- provider[i].country %></td>
+        <td><%- provider[i].service %></td>
+        <td>
+            <a href="/delete-provider?id=<%- provider[i].p_id%>">Delete</a>
+            <a href="/update-provider?id=<%- provider[i].p_id%>">Update</a>
+        </td>
+    </tr>
+    <% } %>
+ 
+
+</table>
+
+</body>
+</html>

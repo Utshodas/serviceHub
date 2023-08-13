@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<form action="/search">
+    <h1>Search</h1>
+    
+    <input type="text" id="id" name="id" placeholder="Search ID">
+    
+    <input type="text" id="name" name="name" placeholder="Name">
+    
+    <input type="submit" value="Search">
+</form>
+
+<h2>User Table</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Password</th>
+    </tr>
+    <% if(client.length>0) { %>
+    <% for(var i=0; i<client.length;i++){ %>
+    <tr>
+        <td><%- client[i].c_id%></td>
+        <td><%- client[i].c_name%></td>
+        <td><%- client[i].password%></td>
+    </tr>
+    <% } %>
+    <% } else { %>
+        <tr>
+            <td>Data not found</td>
+        </tr>
+    <% } %>
+ 
+
+</table>
+
+</body>
+</html>

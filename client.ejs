@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .logout-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<% if (req.session.userType == 'client') { %>
+    <div class="logout-btn">
+        <a href="/logout">Logout</a>
+    </div>
+    <h2>User Table</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>House</th>
+            <th>Street</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Action</th>
+        </tr>
+        <% for (var i = 0; i < client.length; i++) { %>
+        <tr>
+            <td><%- client[i].c_id %></td>
+            <td><%- client[i].c_name %></td>
+            <td><%- client[i].house %></td>
+            <td><%- client[i].street %></td>
+            <td><%- client[i].city %></td>
+            <td><%- client[i].country %></td>
+            <td>
+                <a href="/delete-client?id=<%- client[i].c_id %>">Delete</a>
+                <a href="/update-client?id=<%- client[i].c_id %>">Update</a>
+            </td>
+        </tr>
+        <% } %>
+    </table>
+<% } else { %>
+    <script>
+        window.location.href = '/register'; // Redirect to the registration page
+    </script>
+<% } %>
+
+</body>
+</html>
