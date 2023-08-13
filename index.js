@@ -48,7 +48,7 @@ app.post('/', function(req, res){
                 if (result.length > 0) {
                     req.session.userType = userType;
                     req.session.userName = name;
-                    res.redirect('/provider')
+                    res.render(__dirname+"/provider-profile",{provider:result,});
                 }
             });
         }
@@ -58,6 +58,15 @@ app.post('/', function(req, res){
 
 app.get('/register', function(req, res){
     res.sendFile(__dirname+'/register.html');
+});
+app.get('/search-service', function(req, res){
+    var sql = "SELECT * FROM provider";
+   
+    con.query(sql,function(error,result){
+        if(error) console.log(error);
+        res.render(__dirname+"/search-service",{provider:result});
+    });
+
 });
 
 
@@ -110,7 +119,7 @@ app.get('/provider',function(req, res){
    
            con.query(sql,function(error,result){
                if(error) console.log(error);
-               res.render(__dirname+"/provider",{provider:result});
+               res.render(__dirname+"/provider",{provider:result, userType: 'provider', req: req});
            });
    
    });
@@ -180,10 +189,10 @@ app.get('/search-client',function(req, res){
 app.get('/search', function(req,res){
     var name = req.query.name;
     var id = req.query.id;
-    var sql = "SELECT * FROM client WHERE c_name LIKE '%"+name+"%' AND c_id LIKE '%"+id+"%' ";
+    var sql = "SELECT * FROM provider WHERE p_name LIKE '%"+name+"%' AND p_id LIKE '%"+id+"%' ";
     con.query(sql,function(error,result){
         if(error) console.log(error);
-        res.render(__dirname+"/search-client",{client:result});
+        res.render(__dirname+"/search-service",{provider:result});
     });
 });
 app.get('/logout', function(req, res) {

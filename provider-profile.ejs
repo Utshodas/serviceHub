@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Client Profile</title>
+    <title>provider Profile</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -69,7 +69,7 @@
         button:hover {
             background-color: #2980b9;
         }
-        .client-info {
+        .provider-info {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -94,16 +94,16 @@
 </head>
 <body>
     <header>
-        <h1>Your Client Profile</h1>
+        <h1>Your provider Profile</h1>
     </header>
 
     <div class="container">
-        <div class="client-info">
-        <h2 class="info-heading" >Client Information</h2>
-        <button class="edit-button"><a href="/update-client?id=<%- client[0].c_id %>">edit</a></button>
+        <div class="provider-info">
+        <h2 class="info-heading" >provider Information</h2>
+        <button class="edit-button"><a href="/update-provider?id=<%- provider[0].c_id %>">edit</a></button>
         </div>
-        <p><strong>Name:</strong> <%= client[0].c_name %></p>
-        <p><strong>Address:</strong> <%= client[0].house_no %> <%= client[0].street %>, <%= client[0].city %>, <%= client[0].country %></p>
+        <p><strong>Name:</strong> <%= provider[0].p_name %></p>
+        <p><strong>Address:</strong> <%= provider[0].house_no %> <%= provider[0].street %>, <%= provider[0].city %>, <%= provider[0].country %></p>
         
         <h2>Your Bookings</h2>
         <table>
@@ -122,6 +122,8 @@
         
         <h2>Search for a Service</h2>
         <form action="/search-service" method="get">
+            <label for="service">Service Name:</label>
+            <input type="text" id="service" name="service">
             <button type="submit">Search Service</button>
         </form>
     </div>

@@ -20,7 +20,10 @@
     </style>
 </head>
 <body>
-
+<% if (req.session.userType == 'provider') { %>
+        <div class="logout-btn">
+            <a href="/logout">Logout</a>
+        </div
 <h2>Provider Table</h2>
 
 <table>
@@ -52,6 +55,11 @@
  
 
 </table>
+<% } else { %>
+    <script>
+        window.location.href = '/register'; // Redirect to the registration page
+    </script>
+<% } %>
 
 </body>
 </html>
