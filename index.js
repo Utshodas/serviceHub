@@ -24,6 +24,7 @@ app.get('/', function(req, res){
     res.sendFile(__dirname+'/login.html');
 });
 
+
 app.post('/', function(req, res){
     var name = req.body.name;
     var password = req.body.password;
@@ -61,12 +62,51 @@ app.get('/register', function(req, res){
 });
 app.get('/search-service', function(req, res){
     var sql = "SELECT * FROM provider";
-   
+    var c_id= req.query.c_id;
     con.query(sql,function(error,result){
         if(error) console.log(error);
-        res.render(__dirname+"/search-service",{provider:result});
+        res.render(__dirname+"/search-service",{provider:result,c_id:c_id});
     });
 
+});
+app.get('/request-service', function(req, res){
+    var sql = "INSERT INTO service(service_name,p_id,c_id) values(?,?,?)";
+    var c_id= req.query.c_id;
+    var p_id = req.query.p_id;
+    var service = req.query.service;
+    con.query(sql,[service,p_id,c_id],function(error,result){
+        if(error) console.log(error);
+    });
+    var sql1= "SELECT * FROM service s JOIN provider p ON s.p_id = p.p_id WHERE service_name=? and s.p_id=? and s.c_id =?;";
+    con.query(sql1,[service,p_id,c_id],function(error,result){
+        if(error) console.log(error);
+        res.render(__dirname+"/client-booking",{service:result,req:req});
+    });
+
+});
+app.get('/client-booking', function(req, res){
+    var c_id= req.query.c_id;
+    var sql= "SELECT * FROM service s JOIN provider p ON s.p_id = p.p_id WHERE c_id =?;";
+    con.query(sql,[c_id],function(error,result){
+        if(error) console.log(error);
+        res.render(__dirname+"/client-booking",{service:result,req:req});
+    });
+});
+app.get('/view-booking', function(req, res){
+    var p_id= req.query.p_id;
+    var sql= "SELECT * FROM service s JOIN client c ON s.c_id = c.c_id WHERE p_id =?;";
+    con.query(sql,[p_id],function(error,result){
+        if(error) console.log(error);
+        res.render(__dirname+"/view-booking",{service:result,req:req});
+    });
+});
+app.get('/view-accepted-booking', function(req, res){
+    var p_id= req.query.p_id;
+    var sql= "SELECT * FROM service s JOIN client c ON s.c_id = c.c_id WHERE p_id =?;";
+    con.query(sql,[p_id],function(error,result){
+        if(error) console.log(error);
+        res.render(__dirname+"/view-accepted-booking",{service:result,req:req});
+    });
 });
 
 
@@ -188,8 +228,8 @@ app.get('/search-client',function(req, res){
    });
 app.get('/search', function(req,res){
     var name = req.query.name;
-    var id = req.query.id;
-    var sql = "SELECT * FROM provider WHERE p_name LIKE '%"+name+"%' AND p_id LIKE '%"+id+"%' ";
+    var service = req.query.service;
+    var sql = "SELECT * FROM provider WHERE p_name LIKE '%"+name+"%' AND service LIKE '%"+service+"%' ";
     con.query(sql,function(error,result){
         if(error) console.log(error);
         res.render(__dirname+"/search-service",{provider:result});

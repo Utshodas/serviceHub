@@ -3,28 +3,93 @@
 <head>
     <title>User Table</title>
     <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        
-        th {
-            background-color: #f2f2f2;
-        }
+       body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #3498db;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #dcdcdc;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f5f5f5;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.client-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info-heading {
+    margin: 0;
+}
+
+.edit-button {
+    font-size: 12px;
+    background: none;
+    border: none;
+    color: #3498db;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.edit-button:hover {
+    text-decoration: underline;
+    color: #2980b9;
+}
+
     </style>
 </head>
 <body>
-<% if (req.session.userType == 'provider') { %>
         <div class="logout-btn">
             <a href="/logout">Logout</a>
         </div
-<h2>Provider Table</h2>
+<h1>Provider Table</h1>
 
 <table>
     <tr>
@@ -55,11 +120,6 @@
  
 
 </table>
-<% } else { %>
-    <script>
-        window.location.href = '/register'; // Redirect to the registration page
-    </script>
-<% } %>
 
 </body>
 </html>

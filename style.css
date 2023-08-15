@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Client Profile</title>
-    <style>
-        body {
+
+body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     margin: 0;
@@ -74,27 +70,3 @@ button:hover {
 .edit-button:hover {
     text-decoration: underline;
 }
-
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Your Client Profile</h1>
-    </header>
-
-    <div class="container">
-        <div class="client-info">
-            <h2 class="info-heading">Client Information</h2>
-            <button class="edit-button"><a href="/update-client?id=<%- client[0].c_id %>">Edit</a></button>
-        </div>
-        <p><strong>Name:</strong> <%= client[0].c_name %></p>
-        <p><strong>Address:</strong> <%= client[0].house_no %> <%= client[0].street %>, <%= client[0].city %>, <%= client[0].country %></p>
-
-        <h2>Your Bookings</h2>
-        <button><a href="/client-booking?c_id=<%- client[0].c_id %>">View Bookings</a></button>
-
-        <h2>Search for a Service</h2>
-        <button><a href="/search-service?c_id=<%- client[0].c_id %>">Search Service</a></button>
-    </div>
-</body>
-</html>

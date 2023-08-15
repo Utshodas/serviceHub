@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Client Profile</title>
+    <title>Your Bookings</title>
     <style>
-        body {
+        
+body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     margin: 0;
@@ -79,22 +80,36 @@ button:hover {
 </head>
 <body>
     <header>
-        <h1>Your Client Profile</h1>
+        <h1>Your Bookings</h1>
     </header>
 
     <div class="container">
-        <div class="client-info">
-            <h2 class="info-heading">Client Information</h2>
-            <button class="edit-button"><a href="/update-client?id=<%- client[0].c_id %>">Edit</a></button>
-        </div>
-        <p><strong>Name:</strong> <%= client[0].c_name %></p>
-        <p><strong>Address:</strong> <%= client[0].house_no %> <%= client[0].street %>, <%= client[0].city %>, <%= client[0].country %></p>
-
-        <h2>Your Bookings</h2>
-        <button><a href="/client-booking?c_id=<%- client[0].c_id %>">View Bookings</a></button>
-
-        <h2>Search for a Service</h2>
-        <button><a href="/search-service?c_id=<%- client[0].c_id %>">Search Service</a></button>
+        <table>
+            <tr>
+                <th>Service</th>
+                <th>Procider</th>
+                <th>Status</th>
+            </tr>
+            <% if (req.session.userType == 'provider') { %>
+            <% if(service.length>0) { %>
+            <% for (var i = 0; i < service.length; i++) { %>
+            <tr>
+                <td><%- service[i].service_name %></td>
+                <td><%- service[i].c_name%></td>
+                <td>Confirmed</td>
+            </tr>
+            <% } %>
+            <% } else { %>
+                <tr>
+                    <td>Data not found</td>
+                </tr>
+            <% } %>
+        </table>
+        <% } else { %>
+            <script>
+                window.location.href = '/register'; // Redirect to the registration page
+            </script>
+        <% } %>
     </div>
 </body>
 </html>
