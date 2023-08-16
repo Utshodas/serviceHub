@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>provider Update</title>
+    <title>Provider Update</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,6 +65,16 @@
     
     <label for="name">Name:</label><br>
     <input type="text" value="<%= provider[0].p_name %>" id="name" name="name" required><br><br>
+    <label for="house">House:</label><br>
+    <input type="text" value="<%= provider[0].house %>" id="house" name="house" required><br><br>
+    <label for="street">Street:</label><br>
+    <input type="text" value="<%= provider[0].street %>" id="street" name="street" required><br><br>
+    <label for="city">City:</label><br>
+    <input type="text" value="<%= provider[0].city %>" id="city" name="city" required><br><br>
+    <label for="country">Country:</label><br>
+    <input type="text" value="<%= provider[0].country %>" id="country" name="country" required><br><br>
+    <label for="service">service:</label><br>
+    <input type="text" value="<%= provider[0].service %>" id="service" name="service" required><br><br>
     
     <label for="password">Password:</label><br>
     <input type="password" id="password" minlength="5" maxlength="10" name="password" required><br><br>

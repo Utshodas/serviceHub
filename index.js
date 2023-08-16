@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 const port = 7000;
 const session = require('express-session');
+const bcrypt = require('bcryptjs');
 
 var bodyParser = require('body-parser');
 
@@ -31,10 +32,10 @@ app.post('/', function(req, res){
     var userType = req.body.userType;
     if(userType=="client") 
         {
-            var sql = "SELECT * FROM client WHERE c_name=? and password=?";
-            con.query(sql,[name,password],function(error,result){
+            var sql = "SELECT * FROM client WHERE c_name=?";
+            con.query(sql,[name],function(error,result){
                 if(error) throw error;
-                if (result.length > 0) {
+                if (bcrypt.compareSync(password,result[0].password)) {
                     req.session.userType = userType;
                     req.session.userName = name;
                     res.render(__dirname+"/client-profile",{client:result,});
@@ -43,10 +44,10 @@ app.post('/', function(req, res){
         }
         else if(userType=="provider") 
         {
-            var sql = "SELECT * FROM provider WHERE p_name=? and password=?";
-            con.query(sql,[name,password],function(error,result){
+            var sql = "SELECT * FROM provider WHERE p_name=?";
+            con.query(sql,[name],function(error,result){
                 if(error) throw error;
-                if (result.length > 0) {
+                if (bcrypt.compareSync(password,result[0].password)) {
                     req.session.userType = userType;
                     req.session.userName = name;
                     res.render(__dirname+"/provider-profile",{provider:result,});
@@ -113,7 +114,7 @@ app.get('/view-accepted-booking', function(req, res){
 app.post('/register', function(req, res){
     var name = req.body.name;
     var id = req.body.id;
-    var password = req.body.password;
+    var password =bcrypt.hashSync(req.body.password,10);
     var house = req.body.house;
     var street = req.body.street;
     var city = req.body.city;
@@ -194,7 +195,7 @@ app.get('/update-client',function(req, res){
 app.post('/update-client', function(req, res){
     var name = req.body.name;
     var id = req.body.id;
-    var password = req.body.password;
+    var password = bcrypt.hashSync(req.body.password,10);
     var house = req.body.house;
     var street = req.body.street;
     var city = req.body.city;
@@ -214,6 +215,21 @@ app.get('/update-provider',function(req, res){
                res.render(__dirname+"/update-provider",{provider:result});
            });
    
+});
+app.post('/update-provider', function(req, res){
+    var name = req.body.name;
+    var id = req.body.id;
+    var password = bcrypt.hashSync(req.body.password,10);
+    var house = req.body.house;
+    var street = req.body.street;
+    var city = req.body.city;
+    var country = req.body.country;
+    var service = req.body.service;
+    var sql = "UPDATE provider SET p_name=?,house=?,street=?,city=?,country=?,password=?,service=? where p_id=?";
+    con.query(sql,[name,house,street,city,country,password,service,id],function(error,result){
+    if(error) throw error;
+    res.redirect('/provider')
+    });
 });
 
 
